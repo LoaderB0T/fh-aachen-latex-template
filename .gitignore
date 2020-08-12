@@ -118,7 +118,7 @@ acs-*.bib
 *.lzs
 
 # uncomment this for glossaries-extra (will ignore makeindex's style files!)
-# *.ist
+*.ist
 
 # gnuplottex
 *-gnuplottex-*
@@ -293,6 +293,3 @@ TSWLatexianTemp*
 *.glstex
 
 # End of https://www.toptal.com/developers/gitignore/api/latex
-
-# idk what generates this, but we dont need it in source control
-*.ist
