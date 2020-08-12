@@ -1,0 +1,43 @@
+\section{Latex}
+\label{chap:Latex}
+
+This section contains stuff about \gls{latex}.
+
+\subsection{DISCLAMER}
+This document looks ugly af. I know, I know. BUT if you spend more than 5 minutes building the content, it will look fabulous, trust me. The template itself is very clean, minimalistic, functional and easy to use and build beautiful documents, if used with care. I just don't have enough time to build some super duper fancy example doc, but I am sure you will be able to figure it out ;).
+
+\subsection{Prerequisites}
+
+\subsubsection{Installation}
+
+\begin{enumerate}
+  \item Install Strawberry Pearl\\\url{http://strawberryperl.com/}
+  \item Install MikTex\\\url{https://miktex.org/}
+  \item Install Python 3\\\url{https://www.python.org/}
+  \item Install VSCode\\\url{https://code.visualstudio.com/}
+  \item Install the recommended extensions within VSCode
+        \begin{enumerate}
+          \item LaTeX Workshop\\\url{https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop}
+          \item LaTeX Utilities\\\url{https://marketplace.visualstudio.com/items?itemName=tecosaur.latex-utilities}
+          \item bibtexLanguage\\\url{https://marketplace.visualstudio.com/items?itemName=phr0s.bib}
+        \end{enumerate}
+\end{enumerate}
+
+\subsubsection{VSCode Settings}
+To make everything work, you have to change some stuff in the VSCode settings.
+\breakit
+To make those changes, edit the \fileHighlight{settings.json} file in VSCode by pressing \keywordHighlight{[CTRL]+[SHIFT]+[P]} and entering \enquote{settings json}. Select \enquote{Preferences: Open Settings (JSON)}. Make sure your file looks similar to the one shown in figure \ref{code/settings.json}. make sure to have \textbf{ALL} \keywordHighlight{args} configured correctly, otherwise the compilation will fail! Restart all instances of VSCode when done. The code in figure \ref{code/settings.json} is too long for one page, but I am too lazy to fix this. If you read the code of this template you will have nooooo problems finding the file containing that source ;).
+
+\code{json}{code/settings.json}{Parts of the settings.json file of VSCode}
+\FloatBarrier
+
+\subsection{Getting started}
+
+\begin{description}
+  \item[bachelor.sty]\hfill\\
+        This file contains all package imports, variable definitions, command definitions and the base configuration of the whole document. Everything is commented, please just read through this file it should be self explanatory.
+  \item[master.tex]\hfill\\
+        This file contains the structure of the document. It includes all pages including the pages before and after the actual content. To add more \keywordHighlight{tex} files to the document, add them to the section in this file.
+  \item[Content]\hfill\\
+        Due to personal preference I number my content files and also the other files to have them sorted nicely in VSCode. This is not necessary, but helps to navigate around quicker.
+\end{description}

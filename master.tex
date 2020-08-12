@@ -1,0 +1,50 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                    %
+%     This latex template has been created by Janik Schumacher.      %
+%                Just sayin. Feel free to use it ;)                  %
+%                 https://twitter.com/theloaderb0t                   %
+%                                                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,12pt,twoside]{article}
+\usepackage{bachelor}
+
+\include{glossary-def}
+
+\begin{document}
+
+% Disable page numbers for everything until first real text appears
+\pagenumbering{gobble}
+
+\ifthenelse{\equal{\textOnly}{1}}{}{
+      \include{0A-Title}
+      \include{0B-Declaration}
+      %% Only include the abstract if configured so
+      \ifthenelse{\equal{\includeAbstract}{1}}{
+            \include{0C-Abstract}
+      }{}
+      \include{0D-Content}
+}
+
+\ifthenelse{\equal{\includeAbstract}{1}}{}{
+      % Start page numbers if abstract is disabled. Otherwise page numbering starts in the abstract.tex
+      \pagenumbering{arabic}
+}
+
+%%%%%%% INSERT YOUR SECTIONS HERE %%%%%%%
+\include{1-Latex}
+\include{2-Chapter}
+\include{3-Random}
+
+
+
+
+
+% The appendix
+\ifthenelse{\equal{\textOnly}{1}}{}{
+      \clearpage{\thispagestyle{empty}\cleardoublepage}
+
+      \include{100A-End}
+}
+
+\end{document}

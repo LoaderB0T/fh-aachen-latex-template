@@ -1,0 +1,22 @@
+\section[Header Title]{More complex and long title}
+\label{chap:HeaderTitle}
+
+This section contains stuff.
+\subsection{Paragraph}
+stuff.
+
+
+\subsection{Commands}
+This section contains some of the available commands.
+
+\subsubsection{Cites}
+This sentence is a cite \cite{google:mobile-first}. This next sentence is also a cite from another kind of source \cite{idc:stuff}.
+
+\subsubsection{Glossary and acronyms}
+This \gls{word} is in the glossary. It gets printed italic to make clear it is explained in the glossary. Acronyms can also be declared with a \gls{SFC}. If you use the same \gls{SFC} for an acronym again, it will just print the short version. You can also have a glossary entry for a acronym with an \gls{EFC}. The definition of those glossary entries and acronyms is done in the \fileHighlight{glossary-def.tex} file shown in figure \ref{glossary-def.tex}.
+\breakit
+\code{latex}{glossary-def.tex}{Code of the glossary definition}
+
+\subsubsection{Code}
+
+Code can be styled with the \keywordHighlight{minted} package that uses the python library \keywordHighlight{pygments} internally. The programming language, file path and a description have to be provided for the \keywordHighlight{code} command.

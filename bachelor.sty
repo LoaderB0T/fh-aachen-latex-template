@@ -1,0 +1,283 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                    %
+%     This latex template has been created by Janik Schumacher.      %
+%                Just sayin. Feel free to use it ;)                  %
+%                 https://twitter.com/theloaderb0t                   %
+%                                                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% PACKAGE IMPORTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% UTF-8 Support
+\usepackage[utf8]{inputenc}
+
+% font
+\usepackage{PTSerif}
+
+% Color the text
+\usepackage[RGB]{xcolor}
+% disable something because of some compatability reasons with the soul package
+\convertcolorsUfalse
+
+% links to chapters, sections, etc in the pdf
+\usepackage[
+  breaklinks=true,
+  linktocpage=false,
+  linkcolor=.,
+  citecolor=magenta,
+  colorlinks,
+  urlcolor=magenta
+  ]{hyperref}
+
+% Sets up page size and margins
+\usepackage{geometry} 
+\geometry{a4paper, top=25mm, left=35mm, right=35mm, bottom=25mm, headsep=12mm, footskip=12mm}
+
+% For managing sources and citing stuff
+\usepackage[
+  backend   = biber,
+  style     = numeric,
+  sorting   = none,
+  backref   = true
+]{biblatex}
+% add the file containing all sources
+\addbibresource{sources.bib}
+% make urls break in bibliography, so they dont overflow:
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
+
+% todo notes
+\usepackage{todonotes}
+
+% Header and footer
+\usepackage{fancyhdr}
+% Style header and footer:
+\pagestyle{fancy}
+\fancyfoot[RO, LE]{\thepage}
+\fancyfoot[LO]{Janik Schumacher}
+\fancyfoot[RE]{Bachelor Thesis}
+\fancyfoot[C]{}
+
+% Conditions
+\usepackage{ifthen}
+
+% Prevent graphics from leaving a section
+% \FloatBarrier for custom barrier
+\usepackage[section]{placeins}
+
+% more arguments for includegraphics
+\usepackage{graphicx}
+
+% manage captions of graphics (caption width)
+\usepackage{caption}
+
+% max height, max width options for includegraphics
+\usepackage[export]{adjustbox}
+
+% code syntax highlighting and formatting
+\usepackage{minted}
+
+% Line spacing of 1.5 for the whole document
+\usepackage[onehalfspacing]{setspace}
+
+% For the possibility to remove the whitespace in description or itemize
+\usepackage{enumitem}
+
+% Glossary and Acronyms
+\usepackage[acronym]{glossaries-extra}
+
+% fancy tables
+\usepackage{tabu}
+
+% allow breaking of color boxes
+\usepackage{soul}
+
+% Change the scope of counters (figures are counted 1.2 (for second figure in first section))
+\usepackage{chngcntr}
+\counterwithin{figure}{section}
+
+% quotation with \enquote{}
+\usepackage{csquotes}
+
+% prevent lonely widow sentences broken off
+\usepackage[all]{nowidow}
+
+% Generate placeholder lorem ipsum text
+\usepackage{blindtext}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% VARIABLES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+% This disables all graphics, code, the title page, content pages, bib and more
+% This is useful for counting the pages if only the plain text is present.
+% Should definately be set to "0" when the finnished pdf should be printed.
+\newcommand{\textOnly}{0}
+
+% Set this to 1 if you want to include an abstract in your thesis.
+\newcommand{\includeAbstract}{0}
+
+% The width of a graphic is at maximum 90% of the line width
+\newcommand{\imgwidth}{0.9\linewidth}
+% Sometimes you might want 100% of the line width
+\newcommand{\bigimgwidth}{1\linewidth}
+
+% Some color definitions
+\definecolor{cmdArg}{RGB}{100, 100, 100}
+\definecolor{cmdName}{RGB}{251, 49, 153}
+\definecolor{cmdBg}{RGB}{240, 240, 240}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% COMMAND DEFINITIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Break the text with some margin
+\newcommand{\breakit}{\bigbreak\noindent}
+
+
+% Import an image. Usage:
+% \img{path/to/file.png}{This image shows this and that}{img:my-unique-label}
+% To reference this code use \ref{img:my-unique-label}
+\newcommand{\img}[3]{
+  \ifthenelse{\equal{\textOnly}{1}}{}{
+    \begin{figure}[!htp]
+      \centering
+      \captionsetup{width=\imgwidth}
+      \includegraphics[max height=19cm,max width=\imgwidth,keepaspectratio]{#1}
+      \caption{#2}
+      \label{#3}
+    \end{figure}
+  }
+}
+
+% Import an image that should be displayed bigger (whole text width). Usage:
+% \bigimg{path/to/file.png}{This image shows this and that}{img:my-unique-label}
+% To reference this code use \ref{img:my-unique-label}
+\newcommand{\bigimg}[3]{
+  \ifthenelse{\equal{\textOnly}{1}}{}{
+    \begin{figure}[!htp]
+      \centering
+      \captionsetup{width=\bigimgwidth}
+      \includegraphics[max height=19cm,max width=\bigimgwidth,keepaspectratio]{#1}
+      \caption{#2}
+      \label{#3}
+    \end{figure}
+  }
+}
+
+% Import code from a file and format and hightlight it. gets rendered as float. Usage:
+% \code{javascript}{path/to/file.js}{This code shows this and that}
+% To reference this code use \ref{path/to/file.js}
+\newcommand{\code}[3]{
+  \ifthenelse{\equal{\textOnly}{1}}{}{
+
+  \begin{figure}[!htp]
+    \inputminted[linenos,
+    breaklines,
+    numbersep=5pt,
+    baselinestretch=0.85,
+    frame=lines,
+    framesep=2mm]{#1}{#2}
+    \vspace*{-0.6cm}
+    \caption{#3}
+    \label{#2}
+  \end{figure}
+  }
+}
+
+% Import code from a file and format and hightlight it. gets rendered inline Usage:
+% \codeLine{javascript}{path/to/file.js}
+\newcommand{\codeLine}[2]{
+  \ifthenelse{\equal{\textOnly}{1}}{}{
+    \mint[breaklines]{#1}|#2|
+  }
+}
+
+% Setup of color box command using the soul package. Supports breaking words!
+\newcommand{\textBgColor}[2]{\sethlcolor{#1}\hl{#2}}
+
+\newcommand{\gahCommandUsage}[1]{\textbf{Command:} \colorbox{cmdBg}{gah {#1}}}
+
+% Different color and font highlights
+\newcommand{\commandHighlight}[1]{\texttt{\textBgColor{cmdBg}{#1}}}
+\newcommand{\keywordHighlight}[1]{\texttt{\textBgColor{cmdBg}{#1}}}
+\newcommand{\fileHighlight}[1]{\texttt{\textBgColor{cmdBg}{#1}}}
+
+% For printing Signature + Date fields
+\newcommand{\signaturedate}[1]{%
+\noindent
+  \begin{tabu} to \linewidth {@{}X[5]XX[5]@{}}
+                               & &   \today                     \\[-0.4cm]
+    \rule{\linewidth}{0.5pt}   & &   \rule{\linewidth}{0.5pt}   \\
+    #1                         & &   Date
+  \end{tabu}
+}
+
+% make list of figures appear in TOC and get the regular numberation
+\renewcommand\listoffigures{
+  \section{\listfigurename}
+  % \@mkboth{\MakeUppercase\listfigurename}
+  % {\MakeUppercase\listfigurename}
+  \@starttoc{lof}
+}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% COMMANDS FOR GLOSSARY AND ACRONYMS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Disable section in TOC
+\glstocfalse
+
+% Print first appearance of an acronym with the long version
+\setabbreviationstyle[acronym]{long-short}
+
+% Disable title in front of glossary
+\renewcommand{\glossarysection}[2][]{}
+
+% Redefine glossary style for the occurences in the text. \gls{bla} -> how bla is formatted in the text.
+\renewcommand*{\glstextformat}[1]{\textit{#1}}
+
+% Page numbers with page: or pages: and braces
+\GlsXtrEnablePreLocationTag{(page~}{(pages~}
+\renewcommand{\GlsXtrFormatLocationList}[1]{#1)}
+
+
+% Combination of acronym and glossary entry. Will be printed in acronym list and glossary. Usage:
+% \acronymglossary{CSS}
+% {Cascading Style Sheet}
+% {CSS is the language browsers can interpret to style websites.}
+
+\newcommand{\acronymglossary}[3]{
+  \newglossaryentry{gls-#1}
+  {
+    name=#2,
+    description={#3},
+    nonumberlist
+  }
+  \newacronym[see={[Glossary:]{gls-#1}}]{#1}{#1}{#2\glsadd{gls-#1}}
+}
